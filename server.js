@@ -3,12 +3,17 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
+const mongoose = require('mongoose')
+const keys = require('./keys.js')
+mongoose.connect(keys.mongoDBUrl, {
+    useNewUrlParser: true
+}).then(() => console.log("DB connected"))
+const User = require("./models/User.js")
+
 app.use(express.static("public"))
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => res.send('Hello World!'))
 
-let data = [];
 app.post('/api', function(req, res) {
     const sellerName = req.body.sellername
     const product = req.body.product
@@ -16,19 +21,23 @@ app.post('/api', function(req, res) {
     const price = req.body.price
     const description = req.body.description
 
-    const temp = {
+    const data = {
         sellername: sellerName,
         product,
         productid: productId,
         price,
         description
     }
-
-    data.push(temp)
     console.log(data)
-    // console.log(carMake, carModel, color)
-    const reply = `${sellerName} is selling ${product} with ID of ${productId} for ${price}: ${description}.`
-    res.send(reply)
+
+    const user = new User(data)
+    user.save()
+    .then(function() {
+        res.send(data)
+        .catch(function(err) {
+            console.log(err)
+        })
+    })
 })
 
 app.get('/getallinfo', function(req, res) {
