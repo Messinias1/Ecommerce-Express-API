@@ -15,16 +15,18 @@ app.use(bodyParser.json())
 
 
 app.post('/api', function(req, res) {
-    const sellerName = req.body.sellername
-    const product = req.body.product
-    const productId = req.body.productid
-    const price = req.body.price
-    const description = req.body.description
+    // const sellerName = req.body.sellername
+    // const product = req.body.product
+    // const productId = req.body.productid
+    // const price = req.body.price
+    // const description = req.body.description
+
+    const { sellername, product, productid, price, description } = req.body
 
     const data = {
-        sellername: sellerName,
+        sellername,
         product,
-        productid: productId,
+        productid,
         price,
         description
     }
@@ -32,9 +34,9 @@ app.post('/api', function(req, res) {
 
     const user = new User(data)
     user.save()
-    .then(function() {
+    .then(() => {
         res.send(data)
-        .catch(function(err) {
+        .catch((err) => {
             console.log(err)
         })
     })
