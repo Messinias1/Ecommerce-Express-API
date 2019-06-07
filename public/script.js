@@ -1,18 +1,18 @@
 function handleSubmit() {
     const sellerName = document.getElementById("seller-name").value
-    const product = document.getElementById("product").value
-    const productId = document.getElementById("product-id").value
+    const book = document.getElementById("book").value
+    const author = document.getElementById("author").value
     const price = document.getElementById("price").value
-    const description = document.getElementById("description").value
+    const genre = document.getElementById("genre").value
 
-    console.log(sellerName, product, productId, price, description)
+    console.log(sellerName, book, author, price, genre)
 
     const payload = {
         sellername: sellerName,
-        product,
-        productid: productId,
+        book,
+        author,
         price,
-        description
+        genre
     }
     axios.post('/api', payload)
         .then(response => {

@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+const port = 4000
 
 const mongoose = require('mongoose')
 const keys = require('./keys.js')
@@ -15,20 +15,15 @@ app.use(bodyParser.json())
 
 
 app.post('/api', function(req, res) {
-    // const sellerName = req.body.sellername
-    // const product = req.body.product
-    // const productId = req.body.productid
-    // const price = req.body.price
-    // const description = req.body.description
 
-    const { sellername, product, productid, price, description } = req.body
+    const { sellername, book, author, price, genre } = req.body
 
     const data = {
         sellername,
-        product,
-        productid,
+        book,
+        author,
         price,
-        description
+        genre
     }
     console.log(data)
 
@@ -43,7 +38,11 @@ app.post('/api', function(req, res) {
 })
 
 app.get('/getallinfo', function(req, res) {
-    res.send(data)
+    User.find()
+    .then(results => {
+        console.log(results)
+        res.send(results)
+    })
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
