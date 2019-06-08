@@ -6,21 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="script.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
     <link rel="stylesheet" href="style.css">
     <title>Ecommerce Express</title>
 </head>
 <body>
     <h1>Online Book Store</h1>
     <h3>Post Book for Sale</h3>
-    <input type="text" id="seller-name" placeholder="Seller's name...">
-    <input type="text" id="book" placeholder="Book...">
-    <input type="text" id="author" placeholder="Author's Name...">
+    <input type="text" id="seller-name" placeholder="Your name...">
+    <input type="text" id="book" placeholder="Title...">
+    <input type="text" id="author" placeholder="Author...">
     <input type="number" id="price" placeholder="Price...">
     <input type="text" id="genre" placeholder="Genre...">
     <button onclick="handleSubmit()">Submit</button>
 
-    <h2>Display All Books For Sale</h2>
+    <h3>Search Books for Sale by Title</h3>
+    <input type="text" id="title-input" placeholder="Enter Title"/>
+    <button onclick="titleSubmit()">Submit</button>
+    <p id="title-search-results"></p>
+
+    <h3>Display All Books For Sale</h3>
     <button onclick="getAllInfo()">Display All</button>
-    <p id="result"></p>
+    <p id="get-all-info"></p>
 </body>
 </html>

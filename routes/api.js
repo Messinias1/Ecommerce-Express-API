@@ -2,10 +2,6 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/User')
 
-router.get('/', (req, res) => {
-    res.send('Api route working')
-})
-
 router.post('/', function(req, res) {
 
     const { sellername, book, author, price, genre } = req.body
@@ -35,6 +31,21 @@ router.get('/getallinfo', function(req, res) {
     .then(results => {
         console.log(results)
         res.send(results)
+    })
+})
+
+router.get('/gettitleresults', function(req, res) {
+
+    const input = req.query.input
+
+    console.log(input)
+
+    User.find({ book:input }, function(book, error) {
+        if (book) {
+            res.send(book)
+        } else {
+            res.send(error)
+        }
     })
 })
 
