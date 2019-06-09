@@ -34,19 +34,28 @@ router.get('/getallinfo', function(req, res) {
     })
 })
 
-router.get('/gettitleresults', function(req, res) {
+router.get('/gettitleresults/:book', function(req, res) {
 
-    const input = req.query.input
+    const input = req.params.book
 
     console.log(input)
 
-    User.find({ book:input }, function(book, error) {
-        if (book) {
-            res.send(book)
-        } else {
-            res.send(error)
-        }
-    })
+    User.find({ book:input })
+
+        .then(result  => {
+            console.log(input, result)
+            res.send(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
+///////////////////////////////////////////////
+        // if (book) {
+        //     res.send(book)
+        // } else {
+        //     res.send(error)
+        // }
 })
 
 module.exports = router

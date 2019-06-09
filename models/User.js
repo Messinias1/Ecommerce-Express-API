@@ -5,7 +5,7 @@ const userSchema = new Schema({
     sellername: String,
     book: String,
     author: String,
-    price: String,
+    price: Number,
     genre: String
 })
 

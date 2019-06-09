@@ -6,7 +6,7 @@ function handleSubmit() {
     const price = document.getElementById("price").value
     const genre = document.getElementById("genre").value
 
-    console.log(sellerName, book, author, price, genre)
+    // console.log(sellername, book, author, price, genre)
 
     const payload = {
         sellername,
@@ -58,26 +58,55 @@ function titleSubmit() {
 
     console.log(input)
 
-    const url = '/api/gettitleresults?input=' + input
+    // const url = '/api/gettitleresults?input=' + input
+
+    const url = '/api/gettitleresults/' + input
 
     axios.get(url)
         .then(response => {
             console.log(response)
-            // console.log(response.data[0].book)
+            
 
             if (response.data.length > 0) {
-                const returnedTitle = response.data[0].book
-                const price = response.data[0].price
-
-                document.getElementById("title-search-results").innerHTML = "<table>" 
-                +  "<tr>"
-                + "<th>" + returnedTitle + "</th>" 
-                + "<th>" + price + "</th>" 
-                + "<th> <button onclick='purchase()' style='background-color: blue'>Buy</button> </th>"             
-                + "</tr>" 
-                + "</table>"
+                let titles = []
+                for (let i = 0; i < response.data.length; i++) {
+                    titles.push([
+                    //  let returnedTitle = response.data[i].book
+                    //  let price = response.data[i].price
+    
+                    document.getElementById("title-search-results").innerHTML += "<table>" 
+                    +  "<tr>"
+                    + "<th>" + response.data[i].book + "</th>" 
+                    + "<th>" + "$" + response.data[i].price + "</th>" 
+                    + "<th> <button onclick='purchase()' style='background-color: blue'>Purchase</button> </th>"             
+                    + "</tr>" 
+                    + "</table>"
+                    ])
+                }
             } else {
-                document.getElementById("title-search-results").innerHTML = "<h4> We're Sorry We Don't have that book :(</h4>"
-            }
-        })
+                         document.getElementById("title-search-results").innerHTML = "<h4> We're Sorry We Don't have that book :(</h4>"
+                     }
+
+        
+
+        //     if (response.data.length > 0) {
+        //         const returnedTitle = response.data[i].book
+        //         const price = response.data[i].price
+
+        //         document.getElementById("title-search-results").innerHTML += "<table>" 
+        //         +  "<tr>"
+        //         + "<th>" + returnedTitle + "</th>" 
+        //         + "<th>" + "$" + price + "</th>" 
+        //         + "<th> <button onclick='purchase()' style='background-color: blue'>Purchase</button> </th>"             
+        //         + "</tr>" 
+        //         + "</table>"
+        //     } else {
+        //         document.getElementById("title-search-results").innerHTML = "<h4> We're Sorry We Don't have that book :(</h4>"
+        //     }
+         })
+        }
+
+function purchase() {
+    console.log("clicked")
+    alert("Thank You For Your Purchase!");
 }
