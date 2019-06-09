@@ -23,23 +23,22 @@ function handleSubmit() {
 
 function displayAllInfo(data, id) {
     let header = document.getElementById('get-all-info').innerHTML = 
-    "<tr>" 
-    + "<th>" + "Seller Name " + "</th>"
-    + "<th>" + "Book " + "</th>"
-    + "<th>" + "Author " + "</th>"
-    + "<th>" + "Price($USD) " + "</th>"
-    + "<th>" + "Genre " + "</th>"
-    + "</tr>"
+    `<tr> 
+    <th>Seller Name</th>
+    <th>Book</th>
+    <th>Author</th>
+    <th>Price($USD)</th>
+    <th>Genre</th>
+     </tr>`
 
     const listItems = data.map(element => {
-        return ("<tr>" 
-        + "<th>" + element.sellername + "</th>"
-        + "<th>" + element.book + "</th>"
-        + "<th>" + element.author + "</th>"
-        + "<th>" + element.price + "</th>"
-        + "<th>" + (element.genre ? element.genre : " " 
-        + element.genre + " did not specify genre.") + "</th>"
-        + "</tr>")
+        return (`<tr> 
+        <td>${element.sellername}</td>
+        <td>${element.book}</td>
+        <td>${element.author}</td>
+        <td>$${element.price}</td>
+        <td>${element.genre ? element.genre :  " did not specify genre."}</td>
+        </tr>`)
     })
 
     document.getElementById(id).innerHTML = "<table>" + header + listItems.join("\n") + "</table>"
@@ -55,10 +54,7 @@ function getAllInfo() {
 function titleSubmit() {
     console.log("clicked")
     const input = document.getElementById("title-input").value
-
-    console.log(input)
-
-    // const url = '/api/gettitleresults?input=' + input
+     console.log(input)
 
     const url = '/api/gettitleresults/' + input
 
@@ -66,19 +62,18 @@ function titleSubmit() {
         .then(response => {
             console.log(response)
             
-
+            
             if (response.data.length > 0) {
                 let titles = []
+                document.getElementById("title-search-results").innerHTML = ''
                 for (let i = 0; i < response.data.length; i++) {
                     titles.push([
-                    //  let returnedTitle = response.data[i].book
-                    //  let price = response.data[i].price
     
                     document.getElementById("title-search-results").innerHTML += "<table>" 
                     +  "<tr>"
-                    + "<th>" + response.data[i].book + "</th>" 
-                    + "<th>" + "$" + response.data[i].price + "</th>" 
-                    + "<th> <button onclick='purchase()' style='background-color: blue'>Purchase</button> </th>"             
+                    + "<td class='td-one'>" + response.data[i].book + "</td>" 
+                    + "<td class='td-two'>" + "$" + response.data[i].price + "</td>" 
+                    + "<td class='td-three'> <button onclick='purchase()' style='background-color: blue'>Purchase</button> </td>"          
                     + "</tr>" 
                     + "</table>"
                     ])
@@ -86,23 +81,6 @@ function titleSubmit() {
             } else {
                          document.getElementById("title-search-results").innerHTML = "<h4> We're Sorry We Don't have that book :(</h4>"
                      }
-
-        
-
-        //     if (response.data.length > 0) {
-        //         const returnedTitle = response.data[i].book
-        //         const price = response.data[i].price
-
-        //         document.getElementById("title-search-results").innerHTML += "<table>" 
-        //         +  "<tr>"
-        //         + "<th>" + returnedTitle + "</th>" 
-        //         + "<th>" + "$" + price + "</th>" 
-        //         + "<th> <button onclick='purchase()' style='background-color: blue'>Purchase</button> </th>"             
-        //         + "</tr>" 
-        //         + "</table>"
-        //     } else {
-        //         document.getElementById("title-search-results").innerHTML = "<h4> We're Sorry We Don't have that book :(</h4>"
-        //     }
          })
         }
 

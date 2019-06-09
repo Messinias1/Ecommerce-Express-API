@@ -40,7 +40,8 @@ router.get('/gettitleresults/:book', function(req, res) {
 
     console.log(input)
 
-    User.find({ book:input })
+    var item = new RegExp(["^", input, "$"].join(""), "i");
+    User.find({ book:item })
 
         .then(result  => {
             console.log(input, result)
@@ -50,12 +51,6 @@ router.get('/gettitleresults/:book', function(req, res) {
             console.log(err)
             res.send(err)
         })
-///////////////////////////////////////////////
-        // if (book) {
-        //     res.send(book)
-        // } else {
-        //     res.send(error)
-        // }
 })
 
 module.exports = router

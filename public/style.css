@@ -13,7 +13,11 @@ table {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
-
+/* 
   input {
     text-transform: lowercase;
+  } */
+
+  .td-one, .td-two, .td-three {
+    width: 33%
   }

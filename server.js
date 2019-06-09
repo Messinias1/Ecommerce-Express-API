@@ -9,7 +9,6 @@ const keys = require('./keys.js')
 mongoose.connect(keys.mongoDBUrl, {
     useNewUrlParser: true
 }).then(() => console.log("DB connected"))
-// const User = require("./models/User.js")
 
 app.use(express.static("public"))
 app.use(bodyParser.json())
