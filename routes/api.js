@@ -53,4 +53,54 @@ router.get('/gettitleresults/:book', function(req, res) {
         })
 })
 
+router.get('/getauthorresults/:author', function(req, res) {
+    const input = req.params.author
+    console.log(input)
+
+    let item = new RegExp(["^", input, "$"].join(""), "i")
+    User.find({ author:item })
+
+        .then(result => {
+            console.log(input, result)
+            res.send(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
+})
+
+router.get('/getgenreresults/:genre', function(req, res) {
+    const input = req.params.genre
+    console.log(input)
+
+    let item = new RegExp(["^", input, "$"].join(""), "i")
+    User.find({ genre:item })
+
+        .then(result => {
+            console.log(input, result)
+            res.send(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
+})
+
+router.get('/getpriceresults/:price', function(req, res) {
+    const input = req.params.price
+    console.log(input)
+
+    User.find({ price:input })
+
+        .then(result => {
+            console.log(input, result)
+            res.send(result)
+        })
+        .catch(err => {
+            console.log(err)
+            res.send(err)
+        })
+})
+
 module.exports = router

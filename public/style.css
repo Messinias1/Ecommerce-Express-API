@@ -18,6 +18,6 @@ table {
     text-transform: lowercase;
   } */
 
-  .td-one, .td-two, .td-three {
-    width: 33%
+  .td-one, .td-two, .td-three, .td-four, .td-five {
+    width: 20%
   }

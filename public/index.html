@@ -12,6 +12,8 @@
 </head>
 <body>
     <h1>Online Book Store</h1>
+    <br>
+
     <h3>Post Book for Sale</h3>
     <input type="text" id="seller-name" placeholder="Your name...">
     <input type="text" id="book" placeholder="Title...">
@@ -20,10 +22,32 @@
     <input type="text" id="genre" placeholder="Genre...">
     <button onclick="handleSubmit()">Submit</button>
 
-    <h3>Search Books for Sale by Title</h3>
+    <h3>Search Books by Title</h3>
     <input type="text" id="title-input" placeholder="Enter Title"/>
     <button onclick="titleSubmit()">Submit</button>
     <p id="title-search-results"></p>
+
+    <h3>Search by Price</h3>
+    <input type="number" id="price-input-min" placeholder="Enter Min Price"/>
+    <input type="number" id="price-input-max" placeholder="Enter Max Price"/>
+    <!-- <select>
+        <option value="1-10" id="cheap">$1-$10</option>
+        <option value="10-20" id="decent">$10-$20</option>
+        <option value="20-50" id="expenive">$20-$50</option>
+        <option value="50+" id="crazy">$50+</option>
+      </select> -->
+    <button onclick="priceSubmit()">Submit</button>
+    <p id="price-search-results"></p>
+
+    <h3>Search Books by Author</h3>
+    <input type="text" id="author-input" placeholder="Enter Author"/>
+    <button onclick="authorSubmit()">Submit</button>
+    <p id="author-search-results"></p>
+
+    <h3>Search Books by Genre</h3>
+    <input type="text" id="genre-input" placeholder="Enter Genre"/>
+    <button onclick="genreSubmit()">Submit</button>
+    <p id="genre-search-results"></p>
 
     <h3>Display All Books For Sale</h3>
     <button onclick="getAllInfo()">Display All</button>

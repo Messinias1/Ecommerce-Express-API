@@ -6,8 +6,6 @@ function handleSubmit() {
     const price = document.getElementById("price").value
     const genre = document.getElementById("genre").value
 
-    // console.log(sellername, book, author, price, genre)
-
     const payload = {
         sellername,
         book,
@@ -24,24 +22,23 @@ function handleSubmit() {
 function displayAllInfo(data, id) {
     let header = document.getElementById('get-all-info').innerHTML = 
     `<tr> 
-    <th>Seller Name</th>
-    <th>Book</th>
-    <th>Author</th>
-    <th>Price($USD)</th>
-    <th>Genre</th>
-     </tr>`
+        <th>Seller Name</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Price($USD)</th>
+        <th>Genre</th>
+    </tr>`
 
-    const listItems = data.map(element => {
+    const listItems = data.map(e => {
         return (`<tr> 
-        <td>${element.sellername}</td>
-        <td>${element.book}</td>
-        <td>${element.author}</td>
-        <td>$${element.price}</td>
-        <td>${element.genre ? element.genre :  " did not specify genre."}</td>
+        <td>${e.sellername}</td>
+        <td>${e.book}</td>
+        <td>${e.author}</td>
+        <td>$${e.price}<button onclick='purchase()' style='background-color: blue; margin: 10px'>Purchase</button</td>
+        <td>${e.genre ? e.genre :  "No Genre Specified"}</td>
         </tr>`)
     })
-
-    document.getElementById(id).innerHTML = "<table>" + header + listItems.join("\n") + "</table>"
+    document.getElementById(id).innerHTML = "<table>" + header + listItems.join("\n") + "</table>"    
 }
 
 function getAllInfo() {
@@ -52,7 +49,6 @@ function getAllInfo() {
 }
 
 function titleSubmit() {
-    console.log("clicked")
     const input = document.getElementById("title-input").value
      console.log(input)
 
@@ -61,28 +57,97 @@ function titleSubmit() {
     axios.get(url)
         .then(response => {
             console.log(response)
-            
-            
+
             if (response.data.length > 0) {
                 let titles = []
+
                 document.getElementById("title-search-results").innerHTML = ''
+
                 for (let i = 0; i < response.data.length; i++) {
                     titles.push([
-    
-                    document.getElementById("title-search-results").innerHTML += "<table>" 
-                    +  "<tr>"
-                    + "<td class='td-one'>" + response.data[i].book + "</td>" 
-                    + "<td class='td-two'>" + "$" + response.data[i].price + "</td>" 
-                    + "<td class='td-three'> <button onclick='purchase()' style='background-color: blue'>Purchase</button> </td>"          
-                    + "</tr>" 
-                    + "</table>"
+                    document.getElementById("title-search-results").innerHTML += 
+                        `<table>
+                    <tr>
+                        <td class='td-one'>${response.data[i].book}</td>
+                        <td class='td-two'>${response.data[i].author}</td> 
+                        <td class='td-three'>$${response.data[i].price}</td>
+                        <td class='td-four'><button onclick='purchase()' style='background-color: blue; margin: 10px'>Purchase</button></td>          
+                    </tr> 
+                        </table>`
                     ])
                 }
             } else {
-                         document.getElementById("title-search-results").innerHTML = "<h4> We're Sorry We Don't have that book :(</h4>"
-                     }
+                document.getElementById("title-search-results").innerHTML = "<h4> We're Sorry We Don't have that book :(</h4>"
+            }
          })
         }
+
+function authorSubmit() {
+    const input = document.getElementById("author-input").value
+    console.log(input)
+
+   const url = '/api/getauthorresults/' + input
+
+   axios.get(url)
+       .then(response => {
+           console.log(response)
+           if (response.data.length > 0) {
+
+            let authors = []
+            document.getElementById("author-search-results").innerHTML = ''
+
+            for (let i = 0; i < response.data.length; i++) {
+                authors.push([
+                document.getElementById("author-search-results").innerHTML += 
+                    `<table>
+                <tr>
+                    <td class='td-one'>${response.data[i].author}</td>
+                    <td class='td-two'>${response.data[i].book}</td> 
+                    <td class='td-three'>$${response.data[i].price}</td>
+                    <td class='td-four'><button onclick='purchase()' style='background-color: blue; margin: 10px'>Purchase</button></td>          
+                </tr> 
+                    </table>`
+                ])
+            }
+        } else {
+            document.getElementById("author-search-results").innerHTML = "<h4>We're Sorry, We Don't Recognize That Author :(</h4>"
+        }
+    })
+}
+
+function genreSubmit() {
+    const input = document.getElementById("genre-input").value
+    console.log(input)
+
+   const url = '/api/getgenreresults/' + input
+
+   axios.get(url)
+       .then(response => {
+           console.log(response)
+           if (response.data.length > 0) {
+
+            let genres = []
+            document.getElementById("genre-search-results").innerHTML = ''
+
+            for (let i = 0; i < response.data.length; i++) {
+                genres.push([
+                document.getElementById("genre-search-results").innerHTML += 
+                    `<table>
+                <tr>
+                    <td class='td-one'>${response.data[i].genre}</td>
+                    <td class='td-two'>${response.data[i].book}</td>
+                    <td class='td-three'>${response.data[i].author}</td> 
+                    <td class='td-four'>$${response.data[i].price}</td>
+                    <td class='td-five'><button onclick='purchase()' style='background-color: blue; margin: 10px'>Purchase</button></td>          
+                </tr> 
+                    </table>`
+                ])
+            }
+        } else {
+            document.getElementById("genre-search-results").innerHTML = "<h4>We're Sorry, We Don't Recognize That Author :(</h4>"
+        }
+    })
+}
 
 function purchase() {
     console.log("clicked")
