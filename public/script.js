@@ -149,6 +149,41 @@ function genreSubmit() {
     })
 }
 
+function priceSubmit() {
+    const min = document.getElementById("price-input-min").value
+    const max = document.getElementById("price-input-max").value
+    console.log(min, max)
+
+   const url = '/api/getgenreresults/' + min + max
+
+   axios.get(url)
+       .then(response => {
+           console.log(min, max)
+        //    if (response.data.length > 0) {
+
+        //     let genres = []
+        //     document.getElementById("genre-search-results").innerHTML = ''
+
+        //     for (let i = 0; i < response.data.length; i++) {
+        //         genres.push([
+        //         document.getElementById("genre-search-results").innerHTML += 
+        //             `<table>
+        //         <tr>
+        //             <td class='td-one'>${response.data[i].genre}</td>
+        //             <td class='td-two'>${response.data[i].book}</td>
+        //             <td class='td-three'>${response.data[i].author}</td> 
+        //             <td class='td-four'>$${response.data[i].price}</td>
+        //             <td class='td-five'><button onclick='purchase()' style='background-color: blue; margin: 10px'>Purchase</button></td>          
+        //         </tr> 
+        //             </table>`
+        //         ])
+        //     }
+        // } else {
+        //     document.getElementById("genre-search-results").innerHTML = "<h4>We're Sorry, We Don't Recognize That Author :(</h4>"
+        // }
+    })
+}
+
 function purchase() {
     console.log("clicked")
     alert("Thank You For Your Purchase!");
